@@ -10,6 +10,7 @@ sourceCompatibility = '11'
 
 
 repositories {
+    mavenLocal()
     mavenCentral()
     maven {
         url "https://packages.confluent.io/maven"
@@ -18,6 +19,8 @@ repositories {
 
 dependencies {
 
+    implementation 'com.ecs.latam:bh-shared-kernel:1.0-SNAPSHOT'
+    implementation 'com.ecs.latam:bh-file-manager:0.0.1-SNAPSHOT'
     implementation 'com.prowidesoftware:pw-swift-core:SRU2020-9.1.8'
     implementation 'com.prowidesoftware:pw-iso20022:SRU2020-9.1.8'
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:3.0.1'

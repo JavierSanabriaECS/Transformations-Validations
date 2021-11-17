@@ -1,4 +1,4 @@
-package com.ecs.latam;
+package com.ecs.latam.kafka.domain;
 
 import com.prowidesoftware.swift.model.field.Field61;
 import com.prowidesoftware.swift.model.field.Field62F;

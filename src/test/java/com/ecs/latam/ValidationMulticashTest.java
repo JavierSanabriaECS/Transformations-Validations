@@ -1,5 +1,6 @@
 package com.ecs.latam;
 
+import com.ecs.latam.kafka.domain.ValidationMulticash;
 import com.prowidesoftware.swift.utils.Lib;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -7,8 +8,6 @@ import org.junit.jupiter.api.Test;
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
 import java.text.ParseException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ValidationMulticashTest {
     @Test

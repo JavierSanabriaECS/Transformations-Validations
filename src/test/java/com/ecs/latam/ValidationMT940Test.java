@@ -1,12 +1,11 @@
 package com.ecs.latam;
 
+import com.ecs.latam.kafka.domain.ValidationMT940;
 import com.prowidesoftware.swift.utils.Lib;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ValidationMT940Test {
 

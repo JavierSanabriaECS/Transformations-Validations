@@ -1,17 +1,14 @@
 package com.ecs.latam;
 
 
-import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
+import com.ecs.latam.kafka.domain.TransformMT940toXML;
 import com.prowidesoftware.swift.utils.Lib;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 import javax.xml.datatype.DatatypeConfigurationException;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Scanner;
 
 class TransformMT940toXMLTest {
 
