@@ -1,7 +1,7 @@
 package com.ecs.latam;
 
 
-import com.ecs.latam.commons.schemas.TransformationObject;
+import com.ecs.latam.bhsharedkernel.schemas.RouterObject;
 import io.confluent.kafka.serializers.KafkaAvroSerializer;
 import io.confluent.kafka.serializers.KafkaAvroSerializerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -36,12 +36,12 @@ public class BhtKafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<String, TransformationObject> producerFactory() {
+    public ProducerFactory<String, RouterObject> producerFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<String, TransformationObject> kafkaTemplate() {
+    public KafkaTemplate<String, RouterObject> kafkaTemplate() {
         return new KafkaTemplate<>(producerFactory());
     }
 

@@ -1,19 +1,19 @@
 #Kafka
 spring:
   kafka:
-    bootstrap-servers: http://localhost:9092
+    bootstrap-servers: http://broker:9092
     consumer:
       group-id: FIRST_GROUP
 
 #Schema Registry Url
 schema:
   registry:
-    url: http://localhost:8081
+    url: http://schema-registry:8081
 
 #AWS S3 configuration settings
 s3:
   config:
-    url: http://localhost:4566
+    url: http://localstack:4566
     region: south-east-1
     access-key-id: test
     secret-key-id: test
