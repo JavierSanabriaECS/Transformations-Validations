@@ -1,12 +1,12 @@
 package com.ecs.latam.kafka.application.service;
 
+import com.amazonaws.services.s3.AmazonS3;
 import com.ecs.latam.bhfilemanager.BHFile;
 import com.ecs.latam.bhfilemanager.BHFileDownloadRequest;
 import com.ecs.latam.bhfilemanager.FileManagerPort;
+import com.ecs.latam.bhfilemanager.S3FileManager;
 import com.ecs.latam.bhsharedkernel.schemas.RouterObject;
 import com.ecs.latam.kafka.domain.TransformMT940toXML;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -20,11 +20,17 @@ import java.util.Base64;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
+
 @Log4j2
 public class ConsumerMessageKafkaService {
 
+  private final AmazonS3 amazonS3;
   private final FileManagerPort fileManagerPort;
+
+  public ConsumerMessageKafkaService(AmazonS3 amazonS3) {
+    this.amazonS3 = amazonS3;
+    this.fileManagerPort = new S3FileManager(this.amazonS3);
+  }
 
   @KafkaListener(topics = "Transformation1", groupId = "FIRST_GROUP")
   public void transformation(ConsumerRecord<String, RouterObject> routerConsumerRecord)
