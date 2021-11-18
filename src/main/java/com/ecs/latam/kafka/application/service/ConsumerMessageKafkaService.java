@@ -4,11 +4,10 @@ import com.ecs.latam.bhfilemanager.BHFile;
 import com.ecs.latam.bhfilemanager.BHFileDownloadRequest;
 import com.ecs.latam.bhfilemanager.FileManagerPort;
 import com.ecs.latam.bhsharedkernel.schemas.RouterObject;
-import com.ecs.latam.kafka.domain.DataTransformation;
 import com.ecs.latam.kafka.domain.TransformMT940toXML;
-import com.google.gson.Gson;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -22,6 +21,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Log4j2
 public class ConsumerMessageKafkaService {
 
   private final FileManagerPort fileManagerPort;
@@ -29,24 +29,27 @@ public class ConsumerMessageKafkaService {
   @KafkaListener(topics = "Transformation1", groupId = "FIRST_GROUP")
   public void transformation(ConsumerRecord<String, RouterObject> routerConsumerRecord)
       throws DatatypeConfigurationException, ParseException {
-    System.out.println("<<<<START TRANSFORMATION>>>>");
-    System.out.println(routerConsumerRecord.value());
+    log.debug("<<<<START TRANSFORMATION>>>>");
+    RouterObject routerObject = routerConsumerRecord.value();
+    log.debug("Route to: %s ", routerObject);
 
 
     Optional<BHFile> bhFile =
         fileManagerPort.downloadFile(
-            this.mapDataTransformationToBHFileDownloadRequest(routerConsumerRecord.value()));
+            this.mapRouterObjectToBHFileDownloadRequest(routerObject));
 
     if (bhFile.isPresent()) {
       try {
         String fileContent = decodeFile(bhFile);
         TransformMT940toXML transMT940 = new TransformMT940toXML();
-        transMT940.separadorMT940(fileContent);
+        String separadorMT940 = transMT940.separadorMT940(fileContent);
+        log.debug(separadorMT940);
+        log.debug("<<<<END TRANSFORMATION>>>>");
       } catch (IOException e) {
-        e.printStackTrace();
+        log.error("Error transforming file -> ",e);
       }
     } else {
-      System.out.println("File is not found");
+      log.error("File is not found");
     }
   }
 
@@ -56,7 +59,7 @@ public class ConsumerMessageKafkaService {
         StandardCharsets.UTF_8);
   }
 
-  private BHFileDownloadRequest mapDataTransformationToBHFileDownloadRequest(
+  private BHFileDownloadRequest mapRouterObjectToBHFileDownloadRequest(
           RouterObject dataTransformation) {
 
     return BHFileDownloadRequest.builder()

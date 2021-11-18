@@ -1,12 +1,16 @@
 package com.ecs.latam.kafka.domain;
 
 
-import com.prowidesoftware.swift.model.field.*;
+import com.prowidesoftware.swift.model.field.Field60F;
+import com.prowidesoftware.swift.model.field.Field61;
+import com.prowidesoftware.swift.model.field.Field62F;
 import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
 import com.prowidesoftware.swift.model.mx.BusinessAppHdrV02;
 import com.prowidesoftware.swift.model.mx.MxCamt05300108;
 import com.prowidesoftware.swift.model.mx.MxWriteConfiguration;
 import com.prowidesoftware.swift.model.mx.dic.*;
+import lombok.extern.log4j.Log4j2;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;

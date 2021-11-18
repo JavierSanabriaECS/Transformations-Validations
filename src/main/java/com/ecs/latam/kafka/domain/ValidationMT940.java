@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class /home/cristiana/code/oreilly/Transformations-Validations/src/main/java/com/ecs/latam/kafka/domainValidationMT940 {
+public class ValidationMT940 {
     public boolean flagValidator =true;
 
     public boolean validarMT(String inMsg){
