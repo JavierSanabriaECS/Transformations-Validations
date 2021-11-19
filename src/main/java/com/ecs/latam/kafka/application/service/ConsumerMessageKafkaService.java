@@ -9,6 +9,7 @@ import com.ecs.latam.bhsharedkernel.schemas.RouterObject;
 import com.ecs.latam.kafka.domain.TransformMT940toXML;
 import lombok.extern.log4j.Log4j2;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.jboss.netty.util.internal.StringUtil;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +37,7 @@ public class ConsumerMessageKafkaService {
       throws DatatypeConfigurationException, ParseException {
     log.debug("<<<<START TRANSFORMATION>>>>");
     RouterObject routerObject = routerConsumerRecord.value();
-    log.debug("Route to: %s ", routerObject);
+    log.debug(String.format("Route to: %s ", routerObject));
 
 
     Optional<BHFile> bhFile =
@@ -48,7 +49,9 @@ public class ConsumerMessageKafkaService {
         String fileContent = decodeFile(bhFile.get());
         TransformMT940toXML transMT940 = new TransformMT940toXML();
         String separadorMT940 = transMT940.separadorMT940(fileContent);
+
         log.debug(separadorMT940);
+
         log.debug("<<<<END TRANSFORMATION>>>>");
       } catch (IOException e) {
         log.error("Error transforming file -> ",e);
