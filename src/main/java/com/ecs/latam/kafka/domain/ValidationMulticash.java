@@ -18,17 +18,17 @@ public class ValidationMulticash {
             cabecero = inMsgC.split(";");
 
         }catch (Exception e){
-            System.out.println("ERROR DE ARCHIVO: "+e.getMessage().toString());
+            log.debug("ERROR DE ARCHIVO: "+e.getMessage().toString());
             flagValidator = false;
         }
 
 
 
         if(cabecero[0].length()>12){
-            System.out.println("Clave del banco invalid max length");
+            log.debug("Clave del banco invalid max length");
             flagValidator = false;
         }else if(cabecero[0].trim().length()<1){
-            System.out.println("Clave del banco invalid");
+            log.debug("Clave del banco invalid");
             flagValidator = false;
         }
 
@@ -36,10 +36,10 @@ public class ValidationMulticash {
 
 
         if(cabecero[1].length()>24){
-            System.out.println("Cuenta bancaria invalid max length");
+            log.debug("Cuenta bancaria invalid max length");
             flagValidator = false;
         }else if(cabecero[1].trim().length()<1){
-            System.out.println("Cuenta bancaria invalid");
+            log.debug("Cuenta bancaria invalid");
             flagValidator = false;
         }
 
@@ -47,22 +47,22 @@ public class ValidationMulticash {
         try{
 
             if(cabecero[2].length()>4){
-                System.out.println("Consecutivo invalid max length");
+                log.debug("Consecutivo invalid max length");
                 flagValidator = false;
             }else if(Integer.parseInt(cabecero[2])==0){
-                System.out.println("Consecutivo invalid");
+                log.debug("Consecutivo invalid");
                 flagValidator = false;
             }else if(cabecero[2].trim().length()<1){
-                System.out.println("Consecutivo invalid");
+                log.debug("Consecutivo invalid");
                 flagValidator = false;
             }
         }catch (NumberFormatException  e){
-            System.out.println("Invalid field Consecutivo, only numbers");
+            log.debug("Invalid field Consecutivo, only numbers");
             flagValidator = false;
         }
 
         if(cabecero[3].length()>8){
-            System.out.println("Fechas movimientos invalid max length");
+            log.debug("Fechas movimientos invalid max length");
             flagValidator = false;
         }else if(cabecero[3].trim().length()>1){
 
@@ -76,25 +76,25 @@ public class ValidationMulticash {
 
             } catch (ParseException e) {
 
-                System.out.println("Fechas movimientos format invalid");
+                log.debug("Fechas movimientos format invalid");
                 flagValidator = false;
 
             }
         }else{
-            System.out.println("Fechas movimientos invalid");
+            log.debug("Fechas movimientos invalid");
             flagValidator = false;
         }
 
         if(cabecero[4].length()>3){
-            System.out.println("Clave de la moneda invalid max length");
+            log.debug("Clave de la moneda invalid max length");
             flagValidator = false;
         }else if(cabecero[4].trim().length()<1){
-            System.out.println("Clave de la moneda invalid");
+            log.debug("Clave de la moneda invalid");
             flagValidator = false;
         }else {
             if (!cabecero[4].equals("COP")) {
                 if (!cabecero[4].equals("USD")) {
-                    System.out.println("Clave de la moneda invalid");
+                    log.debug("Clave de la moneda invalid");
                     flagValidator = false;
                 }
 
@@ -106,10 +106,10 @@ public class ValidationMulticash {
         saldoInicialCuenta = cabecero[5];
 
         if(saldoInicialCuenta.length()>20){
-            System.out.println("Saldo Inicial Cuenta invalid max length");
+            log.debug("Saldo Inicial Cuenta invalid max length");
             flagValidator = false;
         }else if(saldoInicialCuenta.trim().length()<1) {
-            System.out.println("Saldo Inicial Cuenta invalid max length");
+            log.debug("Saldo Inicial Cuenta invalid max length");
             flagValidator = false;
         }else{
             String signoInicial = null;
@@ -117,7 +117,7 @@ public class ValidationMulticash {
 
             if(!signoInicial.equals("+")){
                 if(!signoInicial.equals("-")){
-                    System.out.println("Signo valor invalid");
+                    log.debug("Signo valor invalid");
                     flagValidator = false;
                 }
             }
@@ -129,7 +129,7 @@ public class ValidationMulticash {
                 Long.parseLong(enterosInicial);
 
             }catch (NumberFormatException e){
-                System.out.println("Invalid field Saldo Inicial de la cuenta");
+                log.debug("Invalid field Saldo Inicial de la cuenta");
                 flagValidator = false;
             }
 
@@ -139,12 +139,12 @@ public class ValidationMulticash {
             try {
                 Integer.parseInt(decimalInicial);
                 if(decimalInicial.length()<2){
-                    System.out.println("Saldo Inicial de la cuenta format invalid");
+                    log.debug("Saldo Inicial de la cuenta format invalid");
                     flagValidator = false;
                 }
 
             }catch (NumberFormatException e){
-                System.out.println("Invalid field Saldo Inicial de la cuenta");
+                log.debug("Invalid field Saldo Inicial de la cuenta");
                 flagValidator = false;
             }
         }
@@ -153,17 +153,17 @@ public class ValidationMulticash {
         totalDebitos = cabecero[6];
 
         if(totalDebitos.length()>20){
-            System.out.println("Total Debitos invalid max length");
+            log.debug("Total Debitos invalid max length");
             flagValidator = false;
         }else if(totalDebitos.trim().length()<1){
-            System.out.println("Total Debitos invalid max length");
+            log.debug("Total Debitos invalid max length");
             flagValidator = false;
         }else{
             String signoTotalDebitos = null;
             signoTotalDebitos = cabecero[6].substring(0,1);
 
             if(!signoTotalDebitos.equals("-")){
-                System.out.println("Signo Total Debitos invalid");
+                log.debug("Signo Total Debitos invalid");
                 flagValidator = false;
             }
 
@@ -174,7 +174,7 @@ public class ValidationMulticash {
                 Long.parseLong(enterosTotalDebitos);
 
             }catch (NumberFormatException e){
-                System.out.println("Invalid field Total de Debitos");
+                log.debug("Invalid field Total de Debitos");
                 flagValidator = false;
             }
 
@@ -184,12 +184,12 @@ public class ValidationMulticash {
             try {
                 Integer.parseInt(decimalTotalDebitos);
                 if(decimalTotalDebitos.length()<2){
-                    System.out.println("Total de Debitos format invalid");
+                    log.debug("Total de Debitos format invalid");
                     flagValidator = false;
                 }
 
             }catch (NumberFormatException e){
-                System.out.println("Invalid field Total de Debitos");
+                log.debug("Invalid field Total de Debitos");
                 flagValidator = false;
             }
 
@@ -199,17 +199,17 @@ public class ValidationMulticash {
         totalCreditos = cabecero[7];
 
         if(totalCreditos.length()>20){
-            System.out.println("Total Creditos invalid max length");
+            log.debug("Total Creditos invalid max length");
             flagValidator = false;
         }else if(totalCreditos.trim().length()<1){
-            System.out.println("Total Creditos invalid max length");
+            log.debug("Total Creditos invalid max length");
             flagValidator = false;
         }else{
             String signoTotalCreditos = null;
             signoTotalCreditos = cabecero[7].substring(0,1);
 
             if(!signoTotalCreditos.equals("+")){
-                System.out.println("Signo Total Creditos invalid");
+                log.debug("Signo Total Creditos invalid");
                 flagValidator = false;
             }
 
@@ -220,7 +220,7 @@ public class ValidationMulticash {
                 Long.parseLong(enterosTotalCreditos);
 
             }catch (NumberFormatException e){
-                System.out.println("Invalid field Total de Creditos");
+                log.debug("Invalid field Total de Creditos");
                 flagValidator = false;
             }
 
@@ -230,12 +230,12 @@ public class ValidationMulticash {
             try {
                 Integer.parseInt(decimalTotalCreditos);
                 if(decimalTotalCreditos.length()<2){
-                    System.out.println("Total de Creditos format invalid");
+                    log.debug("Total de Creditos format invalid");
                     flagValidator = false;
                 }
 
             }catch (NumberFormatException e){
-                System.out.println("Invalid field Total de Creditos");
+                log.debug("Invalid field Total de Creditos");
                 flagValidator = false;
             }
 
@@ -245,10 +245,10 @@ public class ValidationMulticash {
         saldoFinalCuenta = cabecero[8];
 
         if(saldoFinalCuenta.length()>20){
-            System.out.println("Saldo Final de la Cuenta invalid max length");
+            log.debug("Saldo Final de la Cuenta invalid max length");
             flagValidator = false;
         }else if(saldoFinalCuenta.trim().length()<1){
-            System.out.println("Saldo Final de la Cuenta invalid max length");
+            log.debug("Saldo Final de la Cuenta invalid max length");
             flagValidator = false;
         }else{
             String signoSaldoFinal = null;
@@ -256,7 +256,7 @@ public class ValidationMulticash {
 
             if(!signoSaldoFinal.equals("+")){
                 if(!signoSaldoFinal.equals("-")){
-                    System.out.println("Signo Saldo Final invalid");
+                    log.debug("Signo Saldo Final invalid");
                     flagValidator = false;
                 }
             }
@@ -268,7 +268,7 @@ public class ValidationMulticash {
                 Long.parseLong(enterosSaldoFinal);
 
             }catch (NumberFormatException e){
-                System.out.println("Invalid field Saldo Final de la Cuenta");
+                log.debug("Invalid field Saldo Final de la Cuenta");
                 flagValidator = false;
             }
 
@@ -278,12 +278,12 @@ public class ValidationMulticash {
             try {
                 Integer.parseInt(decimalSaldoFinal);
                 if(decimalSaldoFinal.length()<2){
-                    System.out.println("Saldo Final de la Cuenta format invalid");
+                    log.debug("Saldo Final de la Cuenta format invalid");
                     flagValidator = false;
                 }
 
             }catch (NumberFormatException e){
-                System.out.println("Invalid field Saldo Final de la Cuenta");
+                log.debug("Invalid field Saldo Final de la Cuenta");
                 flagValidator = false;
             }
 
@@ -293,12 +293,12 @@ public class ValidationMulticash {
         tipoCuenta = cabecero[9];
 
         if(tipoCuenta.trim().length()<1){
-            System.out.println("Invalid Tipo de Cuenta");
+            log.debug("Invalid Tipo de Cuenta");
             flagValidator = false;
         }else{
             if(!tipoCuenta.equals("01")){
                 if(!tipoCuenta.equals("02")){
-                    System.out.println("Invalid Tipo de Cuenta");
+                    log.debug("Invalid Tipo de Cuenta");
                     flagValidator = false;
                 }
             }
@@ -313,14 +313,14 @@ public class ValidationMulticash {
         try {
             Integer.parseInt(numMovimientos.trim());
             if(numMovimientos.trim().length()>8){
-                System.out.println("Numero movimientos Detalle invalid max length");
+                log.debug("Numero movimientos Detalle invalid max length");
                 flagValidator = false;
             }else if(numMovimientos.trim().length()<1){
-                System.out.println("Numero movimientos Detalle invalid max length");
+                log.debug("Numero movimientos Detalle invalid max length");
                 flagValidator = false;
             }
         }catch (NumberFormatException e){
-            System.out.println("Invalid Numero movimientos Detalle");
+            log.debug("Invalid Numero movimientos Detalle");
             flagValidator = false;
         }
 
@@ -346,17 +346,17 @@ public class ValidationMulticash {
                 detail = trans.split(";");
 
             }catch (Exception e){
-                System.out.println("ERROR DE ARCHIVO: "+e.getMessage().toString());
+                log.debug("ERROR DE ARCHIVO: "+e.getMessage().toString());
                 flagValidator = false;
             }
 
 
 
             if(detail[0].length()>12){
-                System.out.println("Clave del banco invalid max length");
+                log.debug("Clave del banco invalid max length");
                 flagValidator = false;
             }else if(detail[0].trim().length()<1){
-                System.out.println("Clave del banco invalid");
+                log.debug("Clave del banco invalid");
                 flagValidator = false;
             }
 
@@ -364,10 +364,10 @@ public class ValidationMulticash {
 
 
             if(detail[1].length()>24){
-                System.out.println("Cuenta bancaria invalid max length");
+                log.debug("Cuenta bancaria invalid max length");
                 flagValidator = false;
             }else if(detail[1].trim().length()<1){
-                System.out.println("Cuenta bancaria invalid");
+                log.debug("Cuenta bancaria invalid");
                 flagValidator = false;
             }
 
@@ -375,25 +375,25 @@ public class ValidationMulticash {
             try{
 
                 if(detail[2].length()>4){
-                    System.out.println("Consecutivo invalid max length");
+                    log.debug("Consecutivo invalid max length");
                     flagValidator = false;
                 }else if(Integer.parseInt(detail[2])==0){
-                    System.out.println("Consecutivo invalid");
+                    log.debug("Consecutivo invalid");
                     flagValidator = false;
                 }else if(detail[2].trim().length()<1){
-                    System.out.println("Consecutivo invalid");
+                    log.debug("Consecutivo invalid");
                     flagValidator = false;
                 }
             }catch (NumberFormatException  e){
-                System.out.println("Invalid field Consecutivo, only numbers");
+                log.debug("Invalid field Consecutivo, only numbers");
                 flagValidator = false;
             }
 
             if(detail[3].length()>8){
-                System.out.println("Fechas Transaccion invalid max length");
+                log.debug("Fechas Transaccion invalid max length");
                 flagValidator = false;
             }else if(detail[3].trim().length()<1){
-                System.out.println("Fechas Transaccion invalid");
+                log.debug("Fechas Transaccion invalid");
                 flagValidator = false;
             }else{
                 try {
@@ -406,7 +406,7 @@ public class ValidationMulticash {
 
                 } catch (ParseException e) {
 
-                    System.out.println("Fechas Transacciones format invalid");
+                    log.debug("Fechas Transacciones format invalid");
                     flagValidator = false;
 
                 }
@@ -417,10 +417,10 @@ public class ValidationMulticash {
             claveTransBanco = detail[6];
 
             if(claveTransBanco.length()>27){
-                System.out.println("Clave Transaccion del Banco invalid max length");
+                log.debug("Clave Transaccion del Banco invalid max length");
                 flagValidator = false;
             }else if(claveTransBanco.trim().length()<1){
-                System.out.println("Clave Transaccion del Banco invalid");
+                log.debug("Clave Transaccion del Banco invalid");
                 flagValidator = false;
             }
 
@@ -428,10 +428,10 @@ public class ValidationMulticash {
             numeroChequePagado = detail[9];
 
             if(numeroChequePagado.length()>16){
-                System.out.println("Numero de Cheque Pagado invalid max length");
+                log.debug("Numero de Cheque Pagado invalid max length");
                 flagValidator = false;
             }else if(numeroChequePagado.startsWith("0")){
-                System.out.println("Numero de Cheque Pagado invalid format");
+                log.debug("Numero de Cheque Pagado invalid format");
                 flagValidator = false;
             }
 
@@ -439,10 +439,10 @@ public class ValidationMulticash {
             monto = detail[10];
 
             if(monto.length()>20){
-                System.out.println("Monto invalid max length");
+                log.debug("Monto invalid max length");
                 flagValidator = false;
             }else if(monto.trim().length()<1){
-                System.out.println("Monto invalid max length");
+                log.debug("Monto invalid max length");
                 flagValidator = false;
             }else{
                 String signoMonto = null;
@@ -450,7 +450,7 @@ public class ValidationMulticash {
 
                 if(!signoMonto.equals("+")){
                     if(!signoMonto.equals("-")){
-                        System.out.println("Signo Montoinvalid");
+                        log.debug("Signo Montoinvalid");
                         flagValidator = false;
                     }
                 }
@@ -462,7 +462,7 @@ public class ValidationMulticash {
                     Long.parseLong(enterosMonto);
 
                 }catch (NumberFormatException e){
-                    System.out.println("Invalid field Monto");
+                    log.debug("Invalid field Monto");
                     flagValidator = false;
                 }
 
@@ -472,12 +472,12 @@ public class ValidationMulticash {
                 try {
                     Integer.parseInt(decimalMonto);
                     if(decimalMonto.length()<2){
-                        System.out.println("Monto invalid format");
+                        log.debug("Monto invalid format");
                         flagValidator = false;
                     }
 
                 }catch (NumberFormatException e){
-                    System.out.println("Invalid field Monto");
+                    log.debug("Invalid field Monto");
                     flagValidator = false;
                 }
 
@@ -485,10 +485,10 @@ public class ValidationMulticash {
             }
 
             if(detail[13].length()>8){
-                System.out.println("Fecha Efectiva invalid max length");
+                log.debug("Fecha Efectiva invalid max length");
                 flagValidator = false;
             }else if(detail[13].trim().length()<1){
-                System.out.println("Fecha Efectiva invalid");
+                log.debug("Fecha Efectiva invalid");
                 flagValidator = false;
             }else{
                 try {
@@ -501,7 +501,7 @@ public class ValidationMulticash {
 
                 } catch (ParseException e) {
 
-                    System.out.println("Fecha Efectiva format invalid");
+                    log.debug("Fecha Efectiva format invalid");
                     flagValidator = false;
 
                 }
@@ -512,7 +512,7 @@ public class ValidationMulticash {
 
 
             if(nitReferencia1.length()>27){
-                System.out.println("Nit Referencia 1 invalid max length");
+                log.debug("Nit Referencia 1 invalid max length");
                 flagValidator = false;
             }
 
@@ -521,7 +521,7 @@ public class ValidationMulticash {
 
 
             if(referencia2.length()>27){
-                System.out.println("Referencia 2 invalid max length");
+                log.debug("Referencia 2 invalid max length");
                 flagValidator = false;
             }
 
@@ -530,7 +530,7 @@ public class ValidationMulticash {
 
 
             if(referencia.length()>24){
-                System.out.println("Referencia invalid max length");
+                log.debug("Referencia invalid max length");
                 flagValidator = false;
             }
 
@@ -539,7 +539,7 @@ public class ValidationMulticash {
 
 
             if(causalRechazo.length()>27){
-                System.out.println("Causal Rechazo invalid max length");
+                log.debug("Causal Rechazo invalid max length");
                 flagValidator = false;
             }
 
@@ -548,7 +548,7 @@ public class ValidationMulticash {
 
 
             if(codigoTransBanco.length()>27){
-                System.out.println("Codigo unico de Transaccion del Banco invalid max length");
+                log.debug("Codigo unico de Transaccion del Banco invalid max length");
                 flagValidator = false;
             }
 
@@ -557,7 +557,7 @@ public class ValidationMulticash {
 
 
             if(numFormatoConsignacion.length()>27){
-                System.out.println("Numero de Formato de Consignacion invalid max length");
+                log.debug("Numero de Formato de Consignacion invalid max length");
                 flagValidator = false;
             }
 
@@ -566,7 +566,7 @@ public class ValidationMulticash {
         if(flagValidator){
             transformMC.transformacionMC(inMsgC,inMsgD);
         }else{
-            System.out.println("Error in the MC message");
+            log.debug("Error in the MC message");
             flagValidator = false;
         }
 

@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-
+@Log4j2
 public class TransformMT940toXML {
     private static String outMsg = null;
     ValidationMT940 valMT = new ValidationMT940();
@@ -105,7 +105,7 @@ public class TransformMT940toXML {
 
 
         }
-        //System.out.println(mensaje);
+        //log.debug(mensaje);
         return mensaje;
 
 
@@ -278,7 +278,7 @@ public class TransformMT940toXML {
 
             mx.getBkToCstmrStmt().addStmt(stmt);
 
-           System.out.println(mx.message(valor));
+           log.debug(mx.message(valor));
 
             outMsg =mx.message(valor);
 
@@ -331,7 +331,7 @@ public class TransformMT940toXML {
 
           stmt = new AccountStatement9();
           stmt.setId(mt.getField20().getValue());
-          //System.out.println(stmt.getId());
+          //log.debug(stmt.getId());
           //stmt.setCreDtTm(xgcal.normalize());
           stmt.setStmtPgntn(new Pagination1().setPgNb(mt.getField28C().getSequenceNumber()));
           stmt.getStmtPgntn().setLastPgInd(true);
@@ -452,7 +452,7 @@ public class TransformMT940toXML {
 
           mx.getBkToCstmrStmt().addStmt(stmt);
 
-          System.out.println(mx.message(valor));
+          log.debug(mx.message(valor));
 
           outMsg =mx.message(valor);
 

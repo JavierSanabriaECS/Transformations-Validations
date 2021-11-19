@@ -49,7 +49,7 @@ public class TransformMCtoXML {
         if(inMsgC[0].equals("13")){
             frmBic = "GEROCOBB";
         }else{
-            System.out.println("VALIDACION DE BIC");
+            log.debug("VALIDACION DE BIC");
         }
         brafin.setFinInstnId(new FinancialInstitutionIdentification18().setBICFI(frmBic));
         part.setFIId(brafin);
@@ -198,7 +198,7 @@ public class TransformMCtoXML {
 
         mx.getBkToCstmrStmt().addStmt(stmt);
 
-        System.out.println(mx.message(valor));
+        log.debug(mx.message(valor));
 
         outMsg =mx.message(valor);
 
