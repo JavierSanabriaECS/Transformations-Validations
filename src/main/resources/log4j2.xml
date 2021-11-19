@@ -11,7 +11,7 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
 
-        <RollingFile name="debugLog" fileName="${sys:APP_LOG_ROOT}/application-debug.log"
+        <RollingFile name="debugLog" fileName="/tmp/logs/application-debug.log"
                      filePattern="${sys:APP_LOG_ROOT}/application-debug-%d{yyyy-MM-dd}-%i.log">
             <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
@@ -21,7 +21,7 @@
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
 
-        <RollingFile name="infoLog" fileName="${sys:APP_LOG_ROOT}/application-info.log"
+        <RollingFile name="infoLog" fileName="/tmp/logs/application-info.log"
                      filePattern="${sys:APP_LOG_ROOT}/application-info-%d{yyyy-MM-dd}-%i.log" >
             <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
@@ -31,7 +31,7 @@
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
 
-        <RollingFile name="errorLog" fileName="${sys:APP_LOG_ROOT}/application-error.log"
+        <RollingFile name="errorLog" fileName="/tmp/logs/application-error.log"
                      filePattern="${sys:APP_LOG_ROOT}/application-error-%d{yyyy-MM-dd}-%i.log" >
             <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
@@ -41,7 +41,7 @@
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
 
-        <RollingFile name="springLog" fileName="${sys:APP_LOG_ROOT}/spring.log"
+        <RollingFile name="springLog" fileName="/tmp/logs/spring.log"
                      filePattern="${sys:APP_LOG_ROOT}/spring-%d{yyyy-MM-dd}-%i.log" >
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
@@ -50,7 +50,7 @@
             <DefaultRolloverStrategy max="1"/>
         </RollingFile>
 
-        <RollingFile name="transformationLog" fileName="${sys:APP_LOG_ROOT}/application-transformation.log"
+        <RollingFile name="transformationLog" fileName="/tmp/logs/application-transformation.log"
                      filePattern="${sys:APP_LOG_ROOT}/application-aop-%d{yyyy-MM-dd}-%i.log" >
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>

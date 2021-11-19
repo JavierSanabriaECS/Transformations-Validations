@@ -1,10 +1,13 @@
 package com.ecs.latam.kafka.domain;
 
+import lombok.extern.log4j.Log4j2;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+@Log4j2
 public class ValidationMulticash {
 
     public boolean flagValidator =true;

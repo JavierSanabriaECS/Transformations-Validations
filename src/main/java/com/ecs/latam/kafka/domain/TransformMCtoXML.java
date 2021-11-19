@@ -7,6 +7,7 @@ import com.prowidesoftware.swift.model.mx.BusinessAppHdrV02;
 import com.prowidesoftware.swift.model.mx.MxCamt05300108;
 import com.prowidesoftware.swift.model.mx.MxWriteConfiguration;
 import com.prowidesoftware.swift.model.mx.dic.*;
+import lombok.extern.log4j.Log4j2;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
+@Log4j2
 public class TransformMCtoXML {
     private static String outMsg = null;
 
