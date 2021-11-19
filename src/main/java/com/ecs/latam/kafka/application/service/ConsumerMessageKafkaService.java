@@ -20,7 +20,6 @@ import java.util.Base64;
 import java.util.Optional;
 
 @Service
-
 @Log4j2
 public class ConsumerMessageKafkaService {
 
@@ -46,7 +45,7 @@ public class ConsumerMessageKafkaService {
 
     if (bhFile.isPresent()) {
       try {
-        String fileContent = decodeFile(bhFile);
+        String fileContent = decodeFile(bhFile.get());
         TransformMT940toXML transMT940 = new TransformMT940toXML();
         String separadorMT940 = transMT940.separadorMT940(fileContent);
         log.debug(separadorMT940);
@@ -59,10 +58,8 @@ public class ConsumerMessageKafkaService {
     }
   }
 
-  private String decodeFile(Optional<BHFile> bhFile) throws IOException {
-    return new String(
-        Base64.getDecoder().decode(bhFile.get().getFileStream().readAllBytes()),
-        StandardCharsets.UTF_8);
+  private String decodeFile(BHFile bhFile) throws IOException {
+    return  new String(bhFile.getFileStream().readAllBytes(), StandardCharsets.UTF_8);
   }
 
   private BHFileDownloadRequest mapRouterObjectToBHFileDownloadRequest(
