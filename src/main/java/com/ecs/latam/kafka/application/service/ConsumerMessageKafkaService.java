@@ -32,7 +32,7 @@ public class ConsumerMessageKafkaService {
     this.fileManagerPort = new S3FileManager(this.amazonS3);
   }
 
-  @KafkaListener(topics = "Transformation1", groupId = "FIRST_GROUP")
+  @KafkaListener(topics = "statement.fct.files.0", groupId = "FIRST_GROUP")
   public void transformation(ConsumerRecord<String, RouterObject> routerConsumerRecord)
       throws DatatypeConfigurationException, ParseException {
     log.debug("<<<<START TRANSFORMATION>>>>");
