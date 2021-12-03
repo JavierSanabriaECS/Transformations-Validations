@@ -1,9 +1,6 @@
 package com.ecs.latam;
 
-import com.prowidesoftware.swift.model.field.Field25P;
-import com.prowidesoftware.swift.model.field.Field60F;
-import com.prowidesoftware.swift.model.field.Field60M;
-import com.prowidesoftware.swift.model.field.Field61;
+import com.prowidesoftware.swift.model.field.*;
 import com.prowidesoftware.swift.model.mt.mt9xx.MT940;
 import com.prowidesoftware.swift.model.mx.dic.SystemStatusRequestOrNotificationV01;
 
@@ -28,10 +25,36 @@ public class ValidationMT940 {
 
         }
 
+        try{
+            String sender = mt.getSender();
+            if(sender.trim().equals("")||sender.isEmpty()){
+                System.out.println("MT without sender BIC");
+                flagValidator = false;
+            }
+
+        }catch (NullPointerException e){
+            e.getMessage();
+            System.out.println("MT without sender BIC: "+e.toString());
+            flagValidator = false;
+        }
+
+        try{
+            String receiver = mt.getReceiver();
+            if(receiver.trim().equals("")||receiver.isEmpty()){
+                System.out.println("MT without Receiver BIC");
+                flagValidator = false;
+            }
+
+        }catch (NullPointerException e){
+            e.getMessage();
+            System.out.println("MT without Receiver BIC: "+e.toString());
+            flagValidator = false;
+        }
+
 
         try {
             String f20 =mt.getField20().getValue();
-            if(f20!=null){
+            if(!f20.trim().equals("")){
                 if(f20.length()>16){
                     System.out.println("Length of Tag20 is more than 16 characters ");
                     flagValidator = false;
@@ -40,6 +63,9 @@ public class ValidationMT940 {
                             "not contain two consecutive slashes '/'");
                     flagValidator = false;
                 }
+            }else{
+                System.out.println("MT without tag20");
+                flagValidator = false;
             }
         }catch (NullPointerException e){
             e.getMessage();
@@ -67,16 +93,18 @@ public class ValidationMT940 {
 
         try {
             String f25 = null;
-           f25 =mt.getField25().getValue();
-            if(!f25.isEmpty()){
+            f25 =mt.getField25().getValue();
+            if(!f25.isEmpty()||!f25.trim().equals("")){
                 if(f25.length()>35){
                     System.out.println("Length of Tag25 is more than 35 characters");
                     flagValidator = false;
                 }
+            }else{
+                System.out.println("Tag25 is missing");
+                flagValidator = false;
             }
         }catch (NullPointerException e){
             System.out.println("MT without tag25: "+e.toString());
-
             flagValidator = false;
 
         }
@@ -85,17 +113,21 @@ public class ValidationMT940 {
             String f28C = null;
             f28C =mt.getField28C().getValue();
 
-            if(!f28C.isEmpty()){
+            if(!f28C.isEmpty()||!f28C.trim().equals("")){
 
                 try{
                     mt.getField28C().getStatementNumber().isEmpty();
+                    mt.getField28C().getSequenceNumber().isEmpty();
 
 
                 }catch (NullPointerException e){
-                    System.out.println("Tag28C without Statement Number: "+e.toString());
+                    System.out.println("Tag28C without Statement Number or Sequence Number: "+e.toString());
                     flagValidator = false;
                 }
 
+            }else{
+                System.out.println("Tag28C without Pagination Number");
+                flagValidator = false;
             }
         }catch (NullPointerException e){
             System.out.println("MT without tag28C: "+e.toString());
@@ -154,7 +186,7 @@ public class ValidationMT940 {
                 if(null==f60F.getAmount()){
                     System.out.println("tag60F without Amount");
                     flagValidator = false;
-                }else{
+                }else if(!(f60F.getAmount().length() >15)){
                     if(!f60F.getAmount().contains(",")){
                         System.out.println("tag60F The decimal comma ',' is mandatory");
                         flagValidator = false;
@@ -176,11 +208,11 @@ public class ValidationMT940 {
                         }
                     }
 
-
-
-
-
+                }else{
+                    System.out.println("tag60F, Amount length invalid");
+                    flagValidator = false;
                 }
+
             }catch (NumberFormatException e){
                 System.out.println("tag60F, Invalid Amount format only numbers");
                 flagValidator = false;
@@ -230,7 +262,7 @@ public class ValidationMT940 {
                 if(null==f60m.getAmount()){
                     System.out.println("tag60M without Amount");
                     flagValidator = false;
-                }else{
+                }else if(!(f60m.getAmount().length() >15)){
                     if(!f60m.getAmount().contains(",")){
                         System.out.println("tag60M The decimal comma ',' is mandatory");
                         flagValidator = false;
@@ -252,10 +284,9 @@ public class ValidationMT940 {
                         }
                     }
 
-
-
-
-
+                }else{
+                    System.out.println("tag60M, Amount length invalid");
+                    flagValidator = false;
                 }
             }catch (NumberFormatException e){
                 System.out.println("tag60M, Invalid Amount format only numbers");
@@ -364,7 +395,176 @@ public class ValidationMT940 {
                 }
 
             }
+
+
         }
+
+        Field62F f62F =mt.getField62F();
+        Field62M f62m = mt.getField62M();
+
+
+        if(null !=f62F){
+
+            if(null==f62F.getDCMark()){
+                System.out.println("Tag62F without D/C Mark");
+                flagValidator = false;
+            }else if(!(f62F.getDCMark().equals("D")||f62F.getDCMark().equals("C")||f62F.getDCMark().substring(0,1).equals("C")||f62F.getDCMark().substring(0,1).equals("D"))){
+                System.out.println("Tag62F with D/C Mark invalid");
+                flagValidator = false;
+            }
+
+
+
+            if(null==f62F.getDate()){
+                System.out.println("Tag62F without Date");
+                flagValidator = false;
+            }else{
+                try {
+
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyMMdd");
+
+                    formatoFecha.setLenient(false);
+
+                    formatoFecha.parse(f62F.getDate());
+
+                } catch (ParseException e) {
+
+                    System.out.println("Tag62F with Date format invalid");
+                    flagValidator = false;
+
+                }
+            }
+
+            if(null==f62F.getCurrency()){
+                System.out.println("Tag62F without Currency");
+                flagValidator = false;
+            }else{
+                //System.out.println("VALIDAR MONEDAS");
+
+            }
+
+            try {
+                if(null==f62F.getAmount()){
+                    System.out.println("Tag62F without Amount");
+                    flagValidator = false;
+                }else if(!(f62F.getAmount().length() >15)){
+                    if(!f62F.getAmount().contains(",")){
+                        System.out.println("Tag62F The decimal comma ',' is mandatory");
+                        flagValidator = false;
+                    }else{
+                        BigInteger valor = new BigInteger("0");
+                        try {
+                            valor = new BigInteger(f62F.getAmount().substring(0, f62F.getAmount().indexOf(",")));
+                        }catch (StringIndexOutOfBoundsException e){
+                            System.out.println("Tag62F, The integer part of Amount must contain at least one digit");
+                            flagValidator = false;
+                        }
+                        if(f62F.getAmount().substring(f62F.getAmount().indexOf(",")+1).length()==0){
+                            System.out.println("Tag62F, Invalid Amount format");
+                            flagValidator = false;
+                        }else if(f62F.getAmount().substring(f62F.getAmount().indexOf(",")+1).length()>2){
+                            System.out.println("Tag62F, The number of digits following the comma must not exceed the " +
+                                    "maximum number allowed (2)");
+                            flagValidator = false;
+                        }
+                    }
+
+
+
+
+
+                }else{
+                    System.out.println("Tag62F, Invalid Amount length");
+                    flagValidator = false;
+                }
+            }catch (NumberFormatException e){
+                System.out.println("Tag62F, Invalid Amount format only numbers");
+                flagValidator = false;
+            }
+
+
+        }else if(null !=f62m){
+            if(null==f62m.getDCMark()){
+                System.out.println("tag62M without D/C Mark");
+                flagValidator = false;
+            }else if(!(f62m.getDCMark().equals("D")||f62m.getDCMark().equals("C")||f62m.getDCMark().substring(0,1).equals("C")||f62m.getDCMark().substring(0,1).equals("D"))){
+                System.out.println("tag62M with D/C Mark invalid");
+                flagValidator = false;
+            }
+
+
+
+            if(null==f62m.getDate()){
+                System.out.println("tag62M without Date");
+                flagValidator = false;
+            }else{
+                try {
+
+                    SimpleDateFormat formatoFecha = new SimpleDateFormat("yyMMdd");
+
+                    formatoFecha.setLenient(false);
+
+                    formatoFecha.parse(f62m.getDate());
+
+                } catch (ParseException e) {
+
+                    System.out.println("tag62M with Date format invalid");
+                    flagValidator = false;
+
+                }
+            }
+
+            if(null==f62m.getCurrency()){
+                System.out.println("tag62M without Currency");
+                flagValidator = false;
+            }else{
+                //System.out.println("VALIDAR MONEDAS");
+
+            }
+
+            try {
+                if(null==f62m.getAmount()){
+                    System.out.println("tag62M without Amount");
+                    flagValidator = false;
+                }else if(!(f62m.getAmount().length() >15)){
+                    if(!f62m.getAmount().contains(",")){
+                        System.out.println("tag62M The decimal comma ',' is mandatory");
+                        flagValidator = false;
+                    }else{
+                        BigInteger valor = new BigInteger("0");
+                        try {
+                            valor = new BigInteger(f62m.getAmount().substring(0, f62m.getAmount().indexOf(",")));
+                        }catch (StringIndexOutOfBoundsException e){
+                            System.out.println("tag62M, The integer part of Amount must contain at least one digit");
+                            flagValidator = false;
+                        }
+                        if(f62m.getAmount().substring(f62m.getAmount().indexOf(",")+1).length()==0){
+                            System.out.println("tag62M, Invalid Amount format");
+                            flagValidator = false;
+                        }else if(f62m.getAmount().substring(f62m.getAmount().indexOf(",")+1).length()>2){
+                            System.out.println("tag62M, The number of digits following the comma must not exceed the " +
+                                    "maximum number allowed (2)");
+                            flagValidator = false;
+                        }
+                    }
+
+
+
+
+
+                }else{
+                    System.out.println("tag62M, Invalid Amount length");
+                    flagValidator = false;
+                }
+            }catch (NumberFormatException e){
+                System.out.println("tag60M, Invalid Amount format only numbers");
+                flagValidator = false;
+            }
+        }else{
+            System.out.println("tag62F or tag62M, are missing");
+            flagValidator = false;
+        }
+
 
         return flagValidator;
     }
