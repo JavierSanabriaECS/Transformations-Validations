@@ -51,7 +51,8 @@
         </RollingFile>
 
         <RollingFile name="transformationLog" fileName="/tmp/logs/application-transformation.log"
-                     filePattern="/tmp/logs/application-aop-%d{yyyy-MM-dd}-%i.log" >
+                     filePattern="/tmp/logs/application-transformation-%d{yyyy-MM-dd}-%i.log" >
+            <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="19500KB" />
