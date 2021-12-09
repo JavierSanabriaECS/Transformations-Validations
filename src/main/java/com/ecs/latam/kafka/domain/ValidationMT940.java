@@ -114,6 +114,14 @@ public class ValidationMT940 {
         try {
           mt.getField28C().getStatementNumber().isEmpty();
           mt.getField28C().getSequenceNumber().isEmpty();
+          if(mt.getField28C().getStatementNumber().trim().length()>5){
+            log.error("Tag28C wit Statement Number invalid length");
+            flagValidator = false;
+          }
+          if(mt.getField28C().getSequenceNumber().trim().length()>5){
+            log.error("Tag28C wit Sequence Number invalid length");
+            flagValidator = false;
+          }
 
         } catch (NullPointerException e) {
           log.debug("Tag28C without Statement Number: " + e.toString());
