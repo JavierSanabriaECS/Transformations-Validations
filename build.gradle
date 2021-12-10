@@ -42,9 +42,9 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testImplementation group: 'org.assertj', name: 'assertj-core', version: '3.21.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
     testCompileOnly 'org.projectlombok:lombok:1.18.22'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.22'
 
@@ -53,9 +53,8 @@ dependencies {
         exclude group: 'org.springframework.boot', module:'spring-boot-starter-logging'
     }
 
-
-
-
-
 }
 
+test {
+    useJUnitPlatform()
+}

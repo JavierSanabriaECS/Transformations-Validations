@@ -20,8 +20,3 @@ s3:
 
 server:
   port: 8086
-
-logging:
-  file:
-    name: transformation.log
-    path: ./log/
