@@ -11,8 +11,8 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
 
-        <RollingFile name="debugLog" fileName="/tmp/logs/application-debug.log"
-                     filePattern="/tmp/logs/application-debug-%d{yyyy-MM-dd}-%i.log">
+        <RollingFile name="debugLog" fileName="/home/javier/logs/application-debug.log"
+                     filePattern="/home/javier/logs/application-debug-%d{yyyy-MM-dd}-%i.log">
             <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
@@ -21,8 +21,8 @@
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
 
-        <RollingFile name="infoLog" fileName="/tmp/logs/application-info.log"
-                     filePattern="/tmp/logs/application-info-%d{yyyy-MM-dd}-%i.log" >
+        <RollingFile name="infoLog" fileName="/home/javier/logs/application-info.log"
+                     filePattern="/home/javier/logs/application-info-%d{yyyy-MM-dd}-%i.log" >
             <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
@@ -31,8 +31,8 @@
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
 
-        <RollingFile name="errorLog" fileName="/tmp/logs/application-error.log"
-                     filePattern="/tmp/logs/application-error-%d{yyyy-MM-dd}-%i.log" >
+        <RollingFile name="errorLog" fileName="/home/javier/logs/application-error.log"
+                     filePattern="/home/javier/logs/application-error-%d{yyyy-MM-dd}-%i.log" >
             <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
@@ -41,8 +41,8 @@
             <DefaultRolloverStrategy max="10"/>
         </RollingFile>
 
-        <RollingFile name="springLog" fileName="/tmp/logs/spring.log"
-                     filePattern="/tmp/logs/spring-%d{yyyy-MM-dd}-%i.log" >
+        <RollingFile name="springLog" fileName="/home/javier/logs/spring.log"
+                     filePattern="/home/javier/logs/spring-%d{yyyy-MM-dd}-%i.log" >
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
                 <SizeBasedTriggeringPolicy size="19500KB" />
@@ -50,8 +50,8 @@
             <DefaultRolloverStrategy max="1"/>
         </RollingFile>
 
-        <RollingFile name="transformationLog" fileName="/tmp/logs/application-transformation.log"
-                     filePattern="/tmp/logs/application-transformation-%d{yyyy-MM-dd}-%i.log" >
+        <RollingFile name="transformationLog" fileName="/home/javier/logs/application-transformation.log"
+                     filePattern="/home/javier/logs/application-transformation-%d{yyyy-MM-dd}-%i.log" >
             <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout pattern="${LOG_PATTERN}"/>
             <Policies>
@@ -66,6 +66,7 @@
 
         <Logger name="com.ecs.latam.kafka.domain" additivity="false">
             <AppenderRef ref="transformationLog" />
+            <AppenderRef ref="errorLog" />
             <AppenderRef ref="Console" />
         </Logger>
 

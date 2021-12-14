@@ -42,7 +42,7 @@ public class TransformMT940toXML {
             }
             boolean resultVal = true;
             for(String valString:xmlListsOrgn){
-                if(!valMT.validarMT(valString)){
+                if(!valMT.validateMT(valString)){
                     resultVal = false;
                     break;
 
@@ -77,7 +77,7 @@ public class TransformMT940toXML {
             }
             boolean resultVal = true;
             for(String valString:xmlListsOrgn){
-                if(!valMT.validarMT(valString)){
+                if(!valMT.validateMT(valString)){
                     resultVal = false;
                     break;
 
