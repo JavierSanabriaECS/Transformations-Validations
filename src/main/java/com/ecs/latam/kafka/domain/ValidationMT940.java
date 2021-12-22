@@ -11,7 +11,10 @@ import java.util.List;
 @Log4j2
 public class ValidationMT940 {
 
+
     public static void validateMT(String inMsg) throws InvalidMTException {
+
+
         List<String> errorList = new ArrayList<>();
         boolean flagValidator = true;
 

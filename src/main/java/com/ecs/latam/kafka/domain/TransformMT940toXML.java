@@ -28,21 +28,25 @@ import java.util.List;
 @Log4j2
 public class TransformMT940toXML {
 
-    public static String separadorMT940 (String msg) throws InvalidMTException {
-        ValidationMT940 valMT = new ValidationMT940();
-        String mensaje =null;
+
+
+    public static  List<String> separadorMT940 (String msg) throws InvalidMTException {
+
+        List<String> mensaje = new ArrayList<>();
         if(msg.contains("$")){
 
             String[] inmsg = msg.split("\\$");
             ArrayList<String> xmlListsOrgn = new ArrayList<>();
+
             for (int i = 0; i < inmsg.length; i++) {
                 String message1 = inmsg[i] ;
                 xmlListsOrgn.add(message1);
 
             }
+
             boolean resultVal = true;
             for(String valString:xmlListsOrgn){
-                valMT.validateMT(valString);
+                ValidationMT940.validateMT(valString);
 
             }
 
@@ -54,12 +58,12 @@ public class TransformMT940toXML {
                     String tag25final = valMsg2.getField25().getValue();
 
                     if(tag25inicio.equals(tag25final)){
-                        mensaje= transformacionPaginas(xmlListsOrgn);
+                        mensaje.add(transformacionPaginas(xmlListsOrgn));
                     }else{
-                        mensaje = transformacionUnoaUno(xmlListsOrgn).toString();
+                        mensaje = transformacionUnoaUno(xmlListsOrgn);
                     }
                 }else{
-                    mensaje= transformacionUnoaUno(xmlListsOrgn).toString();
+                    mensaje= transformacionUnoaUno(xmlListsOrgn);
                 }
             }
 
@@ -74,7 +78,7 @@ public class TransformMT940toXML {
             }
             boolean resultVal = true;
             for(String valString:xmlListsOrgn){
-               valMT.validateMT(valString);
+                ValidationMT940.validateMT(valString);
             }
 
             if(resultVal){
@@ -85,12 +89,12 @@ public class TransformMT940toXML {
                     String tag25final = valMsg2.getField25().getValue();
 
                     if(tag25inicio.equals(tag25final)){
-                        mensaje= transformacionPaginas(xmlListsOrgn);
+                        mensaje.add(transformacionPaginas(xmlListsOrgn));
                     }else{
-                        mensaje = transformacionUnoaUno(xmlListsOrgn).toString();
+                        mensaje = transformacionUnoaUno(xmlListsOrgn);
                     }
                 }else{
-                    mensaje = transformacionUnoaUno(xmlListsOrgn).toString();
+                    mensaje = transformacionUnoaUno(xmlListsOrgn);
                 }
             }
 
@@ -287,7 +291,7 @@ public class TransformMT940toXML {
 
     }
 
-    private static List<String> transformacionUnoaUno(ArrayList<String> msg) throws DatatypeConfigurationException, ParseException {
+    private static List<String> transformacionUnoaUno(ArrayList<String> msg) throws InvalidMTException {
 
         List<String> camtUnoaUno = new ArrayList<>();
 
@@ -465,7 +469,7 @@ public class TransformMT940toXML {
 
         }catch (Exception e){
             log.error("Error in transformation: "+e.getMessage());
-            throw new InvalidMTException(e.getCause());
+            throw new InvalidMTException(e);
 
         }
            return camtUnoaUno;
