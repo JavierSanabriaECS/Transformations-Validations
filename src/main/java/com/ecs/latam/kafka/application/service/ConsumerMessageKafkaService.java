@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -49,7 +50,7 @@ public class ConsumerMessageKafkaService {
       try {
         String fileContent = decodeFile(bhFile.get());
         TransformMT940toXML transMT940 = new TransformMT940toXML();
-        String separadorMT940 = transMT940.separadorMT940(fileContent);
+        List<String> separadorMT940 = transMT940.separadorMT940(fileContent);
 
         log.debug(separadorMT940);
 

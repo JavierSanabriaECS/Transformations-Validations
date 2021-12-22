@@ -28,9 +28,9 @@ import java.util.List;
 @Log4j2
 public class TransformMT940toXML {
 
-    public static String separadorMT940 (String msg) throws InvalidMTException {
+    public static List<String> separadorMT940 (String msg) throws InvalidMTException {
 
-        String mensaje =null;
+        List<String> mensaje = new ArrayList<>();
         if(msg.contains("$")){
 
             String[] inmsg = msg.split("\\$");
@@ -54,12 +54,12 @@ public class TransformMT940toXML {
                     String tag25final = valMsg2.getField25().getValue();
 
                     if(tag25inicio.equals(tag25final)){
-                        mensaje= transformacionPaginas(xmlListsOrgn);
+                        mensaje.add(transformacionPaginas(xmlListsOrgn));
                     }else{
-                        mensaje = transformacionUnoaUno(xmlListsOrgn).toString();
+                        mensaje = transformacionUnoaUno(xmlListsOrgn);
                     }
                 }else{
-                    mensaje= transformacionUnoaUno(xmlListsOrgn).toString();
+                    mensaje= transformacionUnoaUno(xmlListsOrgn);
                 }
             }
 
@@ -85,12 +85,12 @@ public class TransformMT940toXML {
                     String tag25final = valMsg2.getField25().getValue();
 
                     if(tag25inicio.equals(tag25final)){
-                        mensaje= transformacionPaginas(xmlListsOrgn);
+                        mensaje.add(transformacionPaginas(xmlListsOrgn));
                     }else{
-                        mensaje = transformacionUnoaUno(xmlListsOrgn).toString();
+                        mensaje = transformacionUnoaUno(xmlListsOrgn);
                     }
                 }else{
-                    mensaje = transformacionUnoaUno(xmlListsOrgn).toString();
+                    mensaje = transformacionUnoaUno(xmlListsOrgn);
                 }
             }
 
