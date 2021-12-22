@@ -3,8 +3,10 @@ package com.ecs.latam;
 import com.ecs.latam.kafka.domain.InvalidMTException;
 import com.ecs.latam.kafka.domain.ValidationMT940;
 import com.prowidesoftware.swift.utils.Lib;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 
 import java.io.IOException;
 
@@ -87,14 +89,20 @@ class ValidationMT940Test {
     public void givenMT940_WhenFileComesWithTag20StartEndsHaveSlash_ThenValidationIsFalse() throws IOException {
 
         String MT940_OK = Lib.readResource("MT940_WithTag20StartEndsHaveSlash.txt");
-        ValidationMT940 v = new ValidationMT940();
 
-        try {
-            v.validateMT(MT940_OK);
-        }catch (InvalidMTException e){
-            System.out.println(e.getMessage());
-            assertThat(e.getMessage().isBlank()).isFalse();
-        }
+        // when
+        Throwable thrown = catchThrowable(() -> {
+            ValidationMT940.validateMT(MT940_OK);
+        });
+
+// then
+        assertThat(thrown)
+                .isInstanceOf(InvalidMTException.class)
+                .hasMessageContaining("blkblblblbb");
+
+
+
+
     }
 
     @Test
