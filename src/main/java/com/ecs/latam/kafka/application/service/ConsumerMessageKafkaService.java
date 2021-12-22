@@ -6,6 +6,7 @@ import com.ecs.latam.bhfilemanager.BHFileDownloadRequest;
 import com.ecs.latam.bhfilemanager.FileManagerPort;
 import com.ecs.latam.bhfilemanager.S3FileManager;
 import com.ecs.latam.bhsharedkernel.schemas.RouterObject;
+import com.ecs.latam.kafka.domain.InvalidMTException;
 import com.ecs.latam.kafka.domain.TransformMT940toXML;
 import lombok.extern.log4j.Log4j2;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -53,7 +54,7 @@ public class ConsumerMessageKafkaService {
         log.debug(separadorMT940);
 
         log.debug("<<<<END TRANSFORMATION>>>>");
-      } catch (IOException e) {
+      } catch (IOException | InvalidMTException e) {
         log.error("Error transforming file -> ",e);
       }
     } else {

@@ -1,5 +1,6 @@
 package com.ecs.latam;
 
+import com.ecs.latam.kafka.domain.InvalidMTException;
 import com.ecs.latam.kafka.domain.ValidationMT940;
 import com.prowidesoftware.swift.utils.Lib;
 import org.junit.jupiter.api.Test;
@@ -16,18 +17,28 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_accounts.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isTrue();
+        try {
+            v.validateMT(MT940_OK);
+
+        }catch (InvalidMTException e){
+            assertThat(e.getMessage().isBlank()).isTrue();
+        }
+
+
     }
 
     @Test
-    public void givenMT940_WhenFileComesWithoutSender_ThenValidationIsFalse() throws IOException {
+    public void givenMT940_WhenFileComesWithoutSender_ThenValidationIsFalse() throws IOException{
 
         String MT940_OK = Lib.readResource("MT940_withoutSender.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -36,8 +47,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithoutReceiver.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -46,8 +61,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithoutTag20.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -56,8 +75,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag20lengthMoreThan16.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -66,8 +89,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag20StartEndsHaveSlash.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -76,8 +103,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithoutTag25.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -86,8 +117,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag25lengthMoreThan35.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -96,8 +131,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithoutTag28C.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -106,8 +145,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_ithTag28CWithoutStatementNumber.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -116,8 +159,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_ithTag28CWithoutSequenceNumber.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -126,8 +173,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag28C_StatementNumber_lengthMoreThan5.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -136,8 +187,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag28C_SequenceNumber_lengthMoreThan5.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -146,8 +201,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithoutTag60F.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -156,8 +215,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithoutDCMark.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -166,8 +229,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithDCMarkInvalid.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -176,8 +243,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithoutDate.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -186,8 +257,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithDate_InvalidFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -196,8 +271,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithoutCurrency.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -206,8 +285,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithoutAmount.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -216,8 +299,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithAmount_LengthInvalid.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -226,8 +313,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithAmount_CommaFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -236,8 +327,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithAmount_InvalidPartInteger.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -246,8 +341,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithAmount_InvalidDecimalPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -256,8 +355,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithAmount_WithoutDecimalPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -266,8 +369,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithInvalidAmountFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -276,8 +383,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithoutTag60M.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -286,8 +397,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithoutDCMark.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -296,8 +411,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithDCMarkInvalid.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -306,8 +425,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithoutDate.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -316,8 +439,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithDate_InvalidFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -326,8 +453,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithoutCurrency.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -336,8 +467,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithoutAmount.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -346,8 +481,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60F_WithAmount_LengthInvalid.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -356,8 +495,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithAmount_CommaFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -366,8 +509,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithAmount_InvalidPartInteger.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -376,8 +523,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithAmount_InvalidDecimalPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -386,8 +537,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithAmount_WithoutDecimalPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -396,8 +551,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag60M_WithInvalidAmountFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -406,8 +565,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithoutTag61.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -416,8 +579,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_WithoutDate.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -426,8 +593,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_WithInvalidFormatDate.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -436,8 +607,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_WithoutDCMark.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -446,8 +621,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_WitInvalidDCMark.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -456,8 +635,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_WithoutAmount.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -466,8 +649,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_WithAmount_CommaInvalidFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -476,8 +663,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_WithAmount_InvalidIntegerPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -486,8 +677,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_WithAmount_InvalidDecimalPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -496,8 +691,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_WithAmount_DecimalPartInvalidLength.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -506,8 +705,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_InvalidTransactionType.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -516,8 +719,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_Without_ReferenceForTheAccountOwner.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -526,8 +733,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag61_With_ReferenceForTheAccountOwner_InvalidLength.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -536,8 +747,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithoutTag62F.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -546,8 +761,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithoutDCMark.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -556,8 +775,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithInvalidDCMark.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -566,8 +789,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithoutDate.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -576,8 +803,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithInvalidDateFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -586,8 +817,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithoutCurrency.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -596,8 +831,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithoutAmount.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -606,8 +845,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithAmountInvalidLength.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -616,8 +859,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithInvalidCommaFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -626,8 +873,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithoutIntegerPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -636,8 +887,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithoutDecimalPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -646,8 +901,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithDecimalPartInvalidLength.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -656,8 +915,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62F_WithInvalidAmountFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -666,8 +929,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithoutTag62M.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -676,8 +943,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithoutDCMark.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -686,8 +957,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithInvalidDCMark.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -696,8 +971,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithoutDate.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -706,8 +985,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithInvalidDateFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -716,8 +999,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithoutCurrency.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -726,8 +1013,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithoutAmount.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -736,8 +1027,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithAmountInvalidLength.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -746,8 +1041,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithInvalidCommaFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -756,8 +1055,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithoutIntegerPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -766,8 +1069,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithoutDecimalPart.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -776,8 +1083,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithDecimalPartInvalidLength.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
     @Test
@@ -786,8 +1097,12 @@ class ValidationMT940Test {
         String MT940_OK = Lib.readResource("MT940_WithTag62M_WithInvalidAmountFormat.txt");
         ValidationMT940 v = new ValidationMT940();
 
-        boolean isValidated = v.validateMT(MT940_OK);
-        assertThat(isValidated).isFalse();
+        try {
+            v.validateMT(MT940_OK);
+        }catch (InvalidMTException e){
+            System.out.println(e.getMessage());
+            assertThat(e.getMessage().isBlank()).isFalse();
+        }
     }
 
 

@@ -1,11 +1,11 @@
 package com.ecs.latam;
 
 
+import com.ecs.latam.kafka.domain.InvalidMTException;
 import com.ecs.latam.kafka.domain.TransformMT940toXML;
 import com.prowidesoftware.swift.utils.Lib;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -25,10 +25,10 @@ class TransformMT940toXMLTest {
 
 
     @Test
-    public void separadorTest() throws IOException, DatatypeConfigurationException, ParseException {
+    public void separadorTest() throws IOException, DatatypeConfigurationException, ParseException, InvalidMTException {
         TransformMT940toXML t = new TransformMT940toXML();
         String inMsg ="";
-        inMsg = Lib.readResource("MT940_Pages.txt");
+        inMsg = Lib.readResource("MT940_accounts.txt");
         Assertions.assertNotEquals(t.separadorMT940(inMsg),"","()-->No hay mensaje en la salida");
 
 
