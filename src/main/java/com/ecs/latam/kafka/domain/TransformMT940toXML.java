@@ -29,7 +29,7 @@ import java.util.List;
 public class TransformMT940toXML {
 
     public static String separadorMT940 (String msg) throws InvalidMTException {
-        ValidationMT940 valMT = new ValidationMT940();
+
         String mensaje =null;
         if(msg.contains("$")){
 
@@ -42,7 +42,7 @@ public class TransformMT940toXML {
             }
             boolean resultVal = true;
             for(String valString:xmlListsOrgn){
-                valMT.validateMT(valString);
+                ValidationMT940.validateMT(valString);
 
             }
 
@@ -74,7 +74,7 @@ public class TransformMT940toXML {
             }
             boolean resultVal = true;
             for(String valString:xmlListsOrgn){
-               valMT.validateMT(valString);
+                ValidationMT940.validateMT(valString);
             }
 
             if(resultVal){
@@ -105,7 +105,7 @@ public class TransformMT940toXML {
     }
 
 
-    private static String transformacionPaginas(ArrayList<String> msg)  {
+    private static String transformacionPaginas(ArrayList<String> msg) throws InvalidMTException {
         String outMsg="";
         try{
 
@@ -280,14 +280,15 @@ public class TransformMT940toXML {
 
 
         }catch (Exception e){
-            log.error("Error on transformation: "+e.getMessage());
+            log.error("Error in transformation: "+e.getMessage());
+            throw new InvalidMTException(e);
         }
         return outMsg;
 
 
     }
 
-    private static List<String> transformacionUnoaUno(ArrayList<String> msg) throws DatatypeConfigurationException, ParseException {
+    private static List<String> transformacionUnoaUno(ArrayList<String> msg) throws InvalidMTException {
 
         List<String> camtUnoaUno = new ArrayList<>();
 
@@ -465,7 +466,7 @@ public class TransformMT940toXML {
 
         }catch (Exception e){
             log.error("Error in transformation: "+e.getMessage());
-            throw new InvalidMTException(e.getCause());
+            throw new InvalidMTException(e);
 
         }
            return camtUnoaUno;

@@ -8,4 +8,8 @@ public class InvalidMTException extends Exception {
 
     }
 
+    public InvalidMTException(Exception e){
+        super(e);
+    }
+
 }
