@@ -47,12 +47,12 @@ public class TransformMT940toXML {
                 String tag25final = valMsg2.getField25().getValue();
 
                 if (tag25inicio.equals(tag25final)) {
-                    mensaje.add(transformacionPaginas(xmlListsOrgn));
+                    mensaje.add(transformationPages(xmlListsOrgn));
                 } else {
-                    mensaje = transformacionUnoaUno(xmlListsOrgn);
+                    mensaje = transformationOneByOne(xmlListsOrgn);
                 }
             } else {
-                mensaje = transformacionUnoaUno(xmlListsOrgn);
+                mensaje = transformationOneByOne(xmlListsOrgn);
             }
 
 
@@ -74,26 +74,21 @@ public class TransformMT940toXML {
                 String tag25final = valMsg2.getField25().getValue();
 
                 if (tag25inicio.equals(tag25final)) {
-                    mensaje.add(transformacionPaginas(xmlListsOrgn));
+                    mensaje.add(transformationPages(xmlListsOrgn));
                 } else {
-                    mensaje = transformacionUnoaUno(xmlListsOrgn);
+                    mensaje = transformationOneByOne(xmlListsOrgn);
                 }
             } else {
-                mensaje = transformacionUnoaUno(xmlListsOrgn);
+                mensaje = transformationOneByOne(xmlListsOrgn);
             }
-
-
         }
         return mensaje;
-
-
     }
 
 
-    private static String transformacionPaginas(ArrayList<String> msg) throws InvalidMTException {
+    private static String transformationPages(ArrayList<String> msg) throws InvalidMTException {
         String outMsg = "";
         try {
-
             MT940 mt = MT940.parse(msg.get(0));
             Field60F f60f = mt.getField60F();
             MxCamt05300108 mx = new MxCamt05300108();
@@ -119,7 +114,6 @@ public class TransformMT940toXML {
             mx.setBkToCstmrStmt(new BankToCustomerStatementV08().setGrpHdr(new GroupHeader81()));
             mx.getBkToCstmrStmt().getGrpHdr().setMsgId(mt.getField20().getValue());
             mx.getBkToCstmrStmt().getGrpHdr().setCreDtTm(xgcal.normalize());
-
             AccountStatement9 stmt;
             stmt = new AccountStatement9();
             stmt.setId(mt.getField20().getValue());
@@ -244,7 +238,7 @@ public class TransformMT940toXML {
 
     }
 
-    private static List<String> transformacionUnoaUno(ArrayList<String> msg) throws InvalidMTException {
+    private static List<String> transformationOneByOne(ArrayList<String> msg) throws InvalidMTException {
 
         List<String> xmlUnoaUno = new ArrayList<>();
 
