@@ -190,8 +190,6 @@ public class TransformMCtoXML {
                 entry.setBkTxCd(bank4);
 
                 stmt.addNtry(entry);
-
-
             }
 
             mx.getBkToCstmrStmt().addStmt(stmt);
